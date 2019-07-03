@@ -10,7 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+        <meta name="description" content="&amp;emsp;&amp;emsp;为什么是六探，不是五探或者三探呢？答案很简单，看完没搞懂。自己也在反思，怎么才算搞懂，Spring 知识点甚多，需要搞懂哪些？是背过它的设计理念，还是把代码背下来？如果是这样，时间长了还能剩下什么，怕是除了懵逼，什么也剩不下了吧。
+&amp;emsp;&amp;emsp;当时朋友推荐了一篇博">
     
 
     <!--Author-->
@@ -20,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="这是测试">
+        <meta property="og:title" content="Spring-六探Ioc 容器的依赖注入">
     
 
     <!--Open Graph Description-->
@@ -42,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>这是测试 - ZhengJianBin</title>
+    <title>Spring-六探Ioc 容器的依赖注入 - ZhengJianBin</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
@@ -126,14 +127,14 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">这是测试</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-06-17</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Spring-六探Ioc 容器的依赖注入</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-07-03</p>
         </div>
     </div>
 
     <!-- Icon -->
     <div class="relative w-100 mw8 center white dn dn-m db-ns">
-        <i class="header-icon fa fa-file-text-o"></i>
+        <i class="header-icon fa https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/java.png"></i>
     </div>
 </div>
 
@@ -145,24 +146,28 @@
                 <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
                     <!-- Tags Vertical -->
                     
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/Spring/">#Spring</a> <a class="fw3 ph1 dib" href="/tags/IOC/">#IOC</a> <a class="fw3 ph1 dib" href="/tags/DI/">#DI</a>
+                            </div>
+                        </div>
+                    
 
                     <!-- Main Post Content -->
-                    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                    <p>&emsp;&emsp;为什么是六探，不是五探或者三探呢？答案很简单，看完没搞懂。自己也在反思，怎么才算搞懂，Spring 知识点甚多，需要搞懂哪些？是背过它的设计理念，还是把代码背下来？如果是这样，时间长了还能剩下什么，怕是除了懵逼，什么也剩不下了吧。</p>
+<p>&emsp;&emsp;当时朋友推荐了一篇博客，一个大四同学自己手写简易的Spring。尚不论这位同学的技术怎样。单单就这个项目而言，我想它对Spring的理解是相当的透彻。虽然工作中经常用Spring，遇到一些问题也能解决，但对Spring 还是缺少全局的认识。在看完博客后，深受打击。平时自己也会研究Spring，到头来确凉凉。说明之前探索技术的方式有问题。于是，照着人家的博客，自己也手写了简易的Spring，实现了同样的功能，最后不禁感叹：Spring 不过如此啊。可是接下来的两天，越想越不对，怕是轻敌了。同样的功能Spring 用了诸多类、接口、设计模式，为什么我这个看起来Low 了吧唧的。</p>
+<p>&emsp;&emsp;于是<a href="https://github.com/c-zhengjianbin/MySpring" target="_blank" rel="noopener">MySpring</a>2.0版本由此诞生了。1.0版本没有任何Spring 设计思想，只实现了Spring 基础功能。而2.0版本将借鉴Spring 设计思想，对1.0版本进行升级。初生牛犊不怕虎，说干就干，于是草率的做了起来。说干就干的结果就是，2.0版本功能未实现🌚……</p>
+<p>&emsp;&emsp;说了这么多废话，只想告诉大家，不要冲动，尤其是做技术，做之前先想想。下面进入今天的主题：依赖注入。</p>
+<h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><h3 id="1-1、依赖注入"><a href="#1-1、依赖注入" class="headerlink" title="1.1、依赖注入"></a>1.1、依赖注入</h3><p>&emsp;&emsp;抛开Spring 不谈，什么是依赖注入？依赖注入是将所依赖的传递给将使用的从属对象–引自维基百科。区区几个字，我确看不懂，是太菜了吗？是。这句话涉及到一个问题：谁负责将依赖的传递给将使用的从属对象？你，阿猫，阿狗负责？显然不是。从这个角度考虑，我们知道Spring 在依赖注入的过程中，充当着怎样的角色，大家应该明白了吧。</p>
+<p>&emsp;&emsp;假如没有依赖注入会发生什么？以Java 为例：调用非静态方法前，要实例出它的类对象，可能要实例1个、10个……我就调一下你的方法，你让我实例化这么多对象干嘛？不好意思，这就是Java 的规则，在使用所依赖的对象前，先要把它实例化。当项目的复杂提高时，你的实例越来越多，这项工作变的越来越繁琐。</p>
+<p>&emsp;&emsp;那有没有一种工具，将依赖的对象预先创建好。用时无需担心是否已实例化呢？不再负责依赖对象的实例化？依赖注入就出现了，使用依赖的对象时，无需负责实例化对象以及它的依赖。</p>
 
                     
                     <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Spring/">#Spring</a> <a class="fw3 ph1 dib" href="/tags/IOC/">#IOC</a> <a class="fw3 ph1 dib" href="/tags/DI/">#DI</a>
+                        </div>
                     
 
                     <!-- Comments -->
