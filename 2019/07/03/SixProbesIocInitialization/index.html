@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="&amp;emsp;&amp;emsp;为什么是六探，不是五探或者三探呢？很简单，看完没搞懂。我也时常反思，对于一项技术，怎样才算搞懂，Spring 知识点甚多，需要搞懂哪些？是背过它的设计理念，还是把代码背下来？如果是这样，时间长了还能剩下什么，怕是除了懵逼，什么也剩不下了吧。
+&amp;emsp;&amp;emsp;当时朋友推">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="ZhengJianBin">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Spring-六探Ioc 容器的依赖注入">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="ZhengJianBin">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Spring-六探Ioc 容器的依赖注入 - ZhengJianBin</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- 网站ICon 图片 -->
+    <link rel="icon" href="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/newhead.jpeg
+    " type="image/x-icon">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="ZhengJianBin">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="ZhengJianBin">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="主页">
+                    主页
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="http://wangergou.leanote.com/" 
+                    title="旧博客">
+                    旧博客
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="文章">
+                    文章
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tags" 
+                    title="标签">
+                    标签
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/categories" 
+                    title="分类">
+                    分类
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="关于我">
+                    关于我
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">Spring-六探Ioc 容器的依赖注入</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-07-03</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/java.png"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/Spring/">#Spring</a> <a class="fw3 ph1 dib" href="/tags/IOC/">#IOC</a> <a class="fw3 ph1 dib" href="/tags/DI/">#DI</a> <a class="fw3 ph1 dib" href="/tags/Java/">#Java</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>&emsp;&emsp;为什么是六探，不是五探或者三探呢？很简单，看完没搞懂。我也时常反思，对于一项技术，怎样才算搞懂，Spring 知识点甚多，需要搞懂哪些？是背过它的设计理念，还是把代码背下来？如果是这样，时间长了还能剩下什么，怕是除了懵逼，什么也剩不下了吧。</p>
+<p>&emsp;&emsp;当时朋友推荐了一篇博客，一名大四同学手写简易Spring。尚不论他的技术怎样。单单就这个项目而言，我想他对Spring的理解是相当的透彻。虽然工作中经常使用Spring，遇到问题也能解决，但对Spring 还是缺少全局的认识。看完博客后，深受打击。平时也会研究Spring，到头来确凉凉。说明之前探索技术的方式有问题。于是，照着人家的博客手写了简易的Spring，实现了同样的功能，最后不禁感叹：Spring 不过如此啊。可是接下来的两天，越想越不对，怕是轻敌了。同样的功能Spring 用了诸多类、接口、设计模式，为什么我这个看起来Low 了吧唧的。</p>
+<p>&emsp;&emsp;于是<a href="https://github.com/c-zhengjianbin/MySpring" target="_blank" rel="noopener">MySpring</a>2.0版本由此诞生了。1.0版本没有任何Spring 设计思想，只实现了Spring 基础功能。而2.0版本将借鉴Spring 设计思想，对1.0版本进行升级。初生牛犊不怕虎，说干就干，于是草率的做了起来。说干就干的结果就是，2.0版本功能未实现🌚……</p>
+<p>&emsp;&emsp;说了这么多废话，只想告诉大家，不要冲动，尤其是做技术，做之前先想想。去思考应该怎么做、如何做，而不是上来直接撸代码……好，下面进入正题：向大家介绍楼主对Spring 部分知识的一些见解。</p>
+<h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><h3 id="1-1-emsp-依赖注入"><a href="#1-1-emsp-依赖注入" class="headerlink" title="1.1&emsp;依赖注入"></a>1.1&emsp;依赖注入</h3><p>&emsp;&emsp;抛开Spring 不谈，什么是依赖注入？依赖注入是将所依赖的，传递给将使用的从属对象–引自<a href="https://zh.wikipedia.org/zh-hans/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5" target="_blank" rel="noopener">维基百科</a>。区区几个字，我确看不懂，是太菜了吗？是。这句话涉及到一个问题：谁负责将依赖的传递给将使用的从属对象？你，阿猫，阿狗负责？显然不是。从这个角度思考，Spring 在依赖注入的过程中充当着怎样的角色，我想大家应该有一点感觉了。</p>
+<p>&emsp;&emsp;假如没有依赖注入呢？你的Service 对象内，维护了N多成员变量：DbDAO、AService、BService、各种Utils，实现一个功能需要它们。调用非静态方法前，需要将它们实例化，你需要实例化N 个成员变量。其它Service 对象内也是同样的过程。会出现什么问题呢？使用其它类完成功能时，需要预先实例化；同一个对象可能被不同的Service 实例化了N 次；实例化某个对象，还要负责销毁。想不到调用一次方法，需要这么多工作。不好意思，这是Java 的规则，在使用对象前，先要实例化。当项目复杂度提高时，实例化的对象越来越多。从此你变成了专业的对象创建者，专注创建对象20 年。</p>
+<p>&emsp;&emsp;依赖注入的出现，把我们从苦海中“救”了出来，我们不再负责大部分创建对象的工作。伟大的Java 工程师从此站起来了，让我们从专注创建对象20 年，变成了专注方法调用20 年（刚站起来又要“跪”？🤨）……让我们回到第一个问题：什么是依赖注入？翻译成人话：将对象所依赖的对象引用，传递给对象本身的过程。也就是说，依赖注入是一个过程，是传递依赖对象引用的过程，这个过程涉及到了对象的<span style="color:#30C6CD">实例化</span>、<span style="color:#30C6CD">初始化</span>，当完成这两步后，可以随意调用对象上的方法，依赖注入的工作也就完成了。</p>
+<h3 id="1-2-emsp-对象的实例化、初始化"><a href="#1-2-emsp-对象的实例化、初始化" class="headerlink" title="1.2&emsp;对象的实例化、初始化"></a>1.2&emsp;对象的实例化、初始化</h3><p>&emsp;&emsp;前面我们简单的提到对象的实例化、初始化，那到底什么是对象的实例化、初始化呢？它们在依赖注入中发挥着怎样的作用？</p>
+<p>&emsp;&emsp;从概念与依赖注入的关系去解读它。我们引入<a href="https://baike.baidu.com/item/%E5%AE%9E%E4%BE%8B%E5%8C%96" target="_blank" rel="noopener">百科</a>对实例化的解释：在面向对象的编程中，用类创建对象的过程称为实例化。那究竟如何通过类来创建对象呢？Java 为我们提供了指定的语法：’A a = new A();’，这是我们再熟悉不过的代码了，我们把这行代码称之为对象的实例化过程。更确切的说，使用new 关键字创建对象我们称之为对象的实例化。当然，你可能会问：使用其它方式创建对象，是否为实例化？是的，只是实例化的方式不同而已。</p>
+<p>&emsp;&emsp;接下来我们看初始化，抛开Java 这门语言不谈，我们引入<a href="https://zh.wikipedia.org/wiki/%E5%88%9D%E5%A7%8B%E5%8C%96" target="_blank" rel="noopener">维基百科</a>对初始化的解释：在计算机编程领域中指，为数据对象或变量赋初值的做法。这句话中最重要的一个词：赋初值。那什么是初值？初值我们可以理解为系统默认给变量的某个值，这个值在某种程度是不会满足我们程序的功能。也就是说：系统默认的值不能满足我们的需要，这个时候我们就需要进行初始化，把它设置成我们想要的值。</p>
+<p>&emsp;&emsp;当理解什么是对象的实例化、初始化后，就可以很好的回答第二个问题：它们在依赖注入中发挥着怎样的作用。实例化负责创建所依赖对象的实例，而初始化负责初始化实例对象的变量值（变量可能是基本类型，可能是对象引用）。可见对象的实例化、初始化在依赖注入中承担着最重要的工作。虽然初始化是可选的，但在依赖注入的过程中，如果对象没有正确的被初始化，我们说这个对象是残缺的，它只是一个空壳，不具备任何的工作能力。</p>
+<h3 id="1-3-emsp-Ioc（Inversion-of-Control）、Ioc-容器"><a href="#1-3-emsp-Ioc（Inversion-of-Control）、Ioc-容器" class="headerlink" title="1.3&emsp;Ioc（Inversion of Control）、Ioc 容器"></a>1.3&emsp;Ioc（Inversion of Control）、Ioc 容器</h3><p>&emsp;&emsp;其实Ioc 也没有那么可怕，它只是面向对象的设计原则而已，用来降低代码之间的耦合度。是原则不是规则，说明可遵守可不遵守，随着大家都遵守这个原则，也就慢慢成了一种规则。它究竟是如何降低代码之间的耦合度呢？通过<a href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC" target="_blank" rel="noopener">控制反转</a>，对象在被创建的时候，由一个具有所有对象实体的调控系统，负责将所依赖的对象引入传递给它。翻译成人话：对象被创建的时候，由Ioc 容器负责将所依赖的对象引用，传递给它（对象本身）。传递并不是像<a href="https://baike.baidu.com/item/%E5%87%BB%E9%BC%93%E4%BC%A0%E8%8A%B1" target="_blank" rel="noopener">击鼓传花</a>一样，一个引用被人传来传去，在Java 中主要表现为通过反射将引用设置到对象上。</p>
+<p>&emsp;&emsp;而Ioc 容器作为控制反转模式的载体。说明在这个载体的内部维护着大量的对象引用，需要传递时，它才具备这个能力。这个Ioc 容器在Spring 中具体表现为一个线程安全的Map。而依赖注入作为容器的一部分，当需要传递引用时，由依赖注入完成这项工作。</p>
+<h3 id="1-4-emsp-小结"><a href="#1-4-emsp-小结" class="headerlink" title="1.4&emsp;小结"></a>1.4&emsp;小结</h3><p>&emsp;&emsp;通过前面的介绍，我想你对依赖注入，对象实例化、初始化，Ioc 以及Ioc 容器有了更深的认识。接下来我将和大家一起去探索Spring是如何将这些概念巧妙的结合在一起，如何将这些理念融入到代码中……</p>
+<h2 id="二、进阶"><a href="#二、进阶" class="headerlink" title="二、进阶"></a>二、进阶</h2><h3 id="2-1-emsp-Spring-依赖注入之对象实例化"><a href="#2-1-emsp-Spring-依赖注入之对象实例化" class="headerlink" title="2.1&emsp;Spring 依赖注入之对象实例化"></a>2.1&emsp;Spring 依赖注入之对象实例化</h3><p>&emsp;&emsp;最开始谈到Spring 依赖注入时，我也有些懵逼。依赖注入的概念吧，我也能说出一二，但在看源码时，还是有些措手不及，不知从何下手。于是思考如何从一个全局的角度去看依赖注入，而不是为了看依赖注入而去看。那样没有丝毫意义，因为源码看不懂。于是我画了这张时序图，这样Spring 依赖注入所涉及的类以及类与类之间的关系便一目了然了。<br>&emsp;&emsp;<img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/springdi/ditimingdiagram.png" alt="时序图"></p>
+<p>&emsp;&emsp;图中深绿色表示Java 中的接口，浅绿色表示Java 中的类，下面将为大家介绍它们是如何在依赖注入中发挥作用。<br>&emsp;&emsp;AbstractBeanFactory: 通过Spring 的类注释，能够看出这个类是部分接口的实现，提供了一些复杂的功能。在本篇博客中，我们则只关注它的getBean() 方法，因为它是获取Bean的重要场所。从时序图中看到，getBean() 方法通过调用本类中的doGetBean()。最终通过AbstractAutowireCapableBeanFactory.createBean() 触发创建Bean。这里我要问大家了，为什么它会去调用AbstractAutowireCapableBeanFactory中的方法呢？这个类的作用是什么？回答这个问题之前，我们要先看一下它与AbstractBeanFactory 的类关系以及类的注释。<br>&emsp;&emsp;<img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/springdi/AbstractBeanFactory.png" alt="AbtractBeanFactory与AbstrctAutowireCapableBeanFactory依赖关系图"></p>
+<p>&emsp;&emsp;图中的依赖关系已经非常明确，它是AbstractBeanFactory 的子类。createBean() 是AbstractBeanFactory定义的方法，这是典型的TemplateMethod 模式，最终由子类实现这个方法。</p>
+<p>&emsp;&emsp;AbstractAutowireCapableBeanFactory: 通过Spring 类注释，能够看出此类主要负责Bean 的创建工作。这个创建工作就是我们前面提到的：对象的实例化与初始化。看到这里，你能否回答前面的问题呢？从时序图中，我们看到在类中调用doCreateBean()、createBeanInstance()、instantiateBean()方法，最终触发InstantiationStrategy.instantiate()方法的调用，以实现创建Bean的功能。那InstantiationStrategy是何许人也？回答这个问题之前，我们还是遵循同样的套路：<span style="color:#30C6CD">看类图解以及类注释</span>。
+&emsp;&emsp;<img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/springdi/InstantiationStrategy.png" alt="InstantiationStrategy图解"></p>
+<p>&emsp;&emsp;从时序图中看到，InstantiationStrategy是一个接口。这就意味着它可能具备多个实现，如果是这样，我们可以推断出，在使用过程中会借助于策略模式，对不同的实现进行调用。通过Spring 类注释能够看出，具体的Bean 实例化，交给具体的策略类完成，而策略类又提供了不同的实例化方式，CGLIB 、反射。在时序图中，创建对象的最终工作交付给BeanUtils.instantiateClass()方法执行，在这个方法中可以看到通过反射进行创建对象，该方法执行结束后，Bean 的实例已经创建好。前面我们提到过，如果对象没有正确的被初始化，我们说这个对象是残缺的，它只是一个空壳，不具备任何的工作能力。接下来，Spring 会对Bean 进行初始化，让我们回到AbstractAutowireCapableBeanFactory类中一探究竟……</p>
+<h3 id="2-2-emsp-Spring-依赖注入之对象初始化"><a href="#2-2-emsp-Spring-依赖注入之对象初始化" class="headerlink" title="2.2&emsp;Spring 依赖注入之对象初始化"></a>2.2&emsp;Spring 依赖注入之对象初始化</h3><p>&emsp;&emsp;Spring Bean 的初始化则由AbstractAutowireCapableBeanFactory.popalateBean() 方法触发，通过调用InstantiationAwareBeanPostProcessor接口的实现类AutowireAnnotationBeanProcessor.postProcessPropertyValues()方法接着借助于InjectionMetadata的子类AutowiredFieldElement.inject()方法完成对象的初始化。</p>
+<p>&emsp;&emsp;在初始化的过程中，涉及到三个类InstantiationAwareBeanPostProcessor、AutowireAnnotationBeanProcessor、AutowiredFieldElement，我们分别看一下它们的作用。<br>&emsp;&emsp;<img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/springdi/BeanPostProcessor.png" alt="InstantiationAwareBeanPostProcessor"></p>
+<p>&emsp;&emsp;通过图解能够清晰的了解InstantiationAwareBeanPostProcessor的依赖关系，它实现了BeanFactory接口并用于AutowireAnnotationBeanProcessor的类实现。在接口InstantiationAwareBeanPostProcessor 的类注释中，我们能够看到此类主要用于在一个实例化后，设置属性前添加一个回调。如果再去读postProcessPropertyValues()方法的注释，便熟知这个方法则是负责Bean 的属性设置值。而AutowireAnnotationBeanProcessor则是对使用Autowire、Value 的字段、方法进行初始化的类。而AutowiredFieldElement则表示注释字段的注入信息的类，而它也是初始化发生的最终目的地。下图为AutowiredFieldElement.inject()部分代码。<br>&emsp;&emsp;<img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/springdi/inject.png" alt="InstantiationAwareBeanPostProcessor"></p>
+<h2 id="三、小结"><a href="#三、小结" class="headerlink" title="三、小结"></a>三、小结</h2><p>&emsp;&emsp;到这里，Spring 依赖注入已经讲完了。可能你会有这样的疑惑：挥挥洒洒千儿八百字几乎没有代码的讲解，只是在介绍基本概念、类的功能、类与类之间的关系。</p>
+<p>&emsp;&emsp;还记得文章开头的问题吗？怎样才算搞懂一项技术呢？如果抛开代码你还会剩下什么？我们应该看清代码背后的逻辑、设计思想，在实现一个功能时，我们应该如何组织各个类之间的关系，是否需要继承、如何使用接口以及利用一些设计模式来组织它们？让各个类之间通过良好的配合去驾驭你的功能，而不是为了写代码而写代码。代码只是在向你展示一种实现方式，你完全可以在相同的设计思想下，设计出属于你自己的代码。</p>
+<p>&emsp;&emsp;本篇文章意为大家讲解依赖注入的概念、涉及的相关知识，梳理所涉及的类以及它们的依赖关系，了解依赖注入的设计思想。只有明确了它的设计思想，看代码时才能明白其中的含义。而且我相信，在了解基本的设计思想后，作为一名Java 工程师，你是有能力看懂依赖注入的核心代码。</p>
+<p>&emsp;&emsp;小贴士：本篇文章中第一部分为基础，只需仔细研读，便能理解涉及的知识。但第二部分，需要自己根据所讲流程配合时序图以及查阅相关类注释以及方法注释，方可达到事半功倍的效果。</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Spring/">#Spring</a> <a class="fw3 ph1 dib" href="/tags/IOC/">#IOC</a> <a class="fw3 ph1 dib" href="/tags/DI/">#DI</a> <a class="fw3 ph1 dib" href="/tags/Java/">#Java</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="https://raw.githubusercontent.com/c-zhengjianbin/MySpring/master/img/newhead.jpeg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="ZhengJianBin">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            Hi，这是我的博客，记录日常所学、所想、所做。欢迎和我一起交流<br>
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2019/07/03/SixProbesIocInitialization/">Spring-六探Ioc 容器的依赖注入</a>
+        </p>
+    
+        <p>
+            <a href="/2019/06/17/hello-world/">这是测试</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/c-zhengjianbin" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                <a class="link dim white" href="https://github.com/c-zhengjianbin">Welcome to visit me Github</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
